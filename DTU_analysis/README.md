@@ -210,23 +210,104 @@ res.txp.filt$pvalue[filt] <- 1
 res.txp.filt$adj_pvalue[filt] <- 1
 ```
 
-### Caste
+## __Caste__
 The following are modifications to the code we need to consider in order to perform the analysis between broodcare workers and bodyguards.
 
+### Workflow DRIMSeq
 ```{r Install and Load Packages}
-samps <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", "samplesCaste.csv"))
-names(samps) <- c("sample_id","plant.id","treatment.code","condition", "attack.avg", "activity.level", "date", "time")
-files <- file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", samps$sample_id, "quant.sf")
+samps <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Activity_level", "samplesActivity.csv"))
+head(samps)
+names(samps) <- c("sample_id","plant.id","code","treatment", "attack.avg", "condition")
+samps$condition <- factor(samps$condition)
+table(samps$condition)
+files <- file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Activity_level", samps$sample_id, "quant.sf")
+names(files) <- samps$sample_id
+head(files)
+###
 cts <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", "cts_caste.csv"), row.names = 1)
+###Check the cts file format and edit it with NOTEPAD ++, you can also edit it with the command line in the server.
+### NODE_1_length_27414_cov_892.910316_g0_i0 -> (^NODE_\d+_length_\d+_cov_\d+(...)?\d+_) 
 txdf <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", "txdf.csv"))
-n <- 12 ### The number of samples is different from the Activity analysis
-n.small <- 6 ### The n.small to be the sample size of the smallest group is different from the Activity analysis. 
+all(rownames(cts) %in% txdf$TXNAME)
+txdf <- txdf[match(rownames(cts),txdf$TXNAME),]
+all(rownames(cts) == txdf$TXNAME)
+###In order to run DRIMSeq, we build a data.frame with the gene ID, the feature (transcript) ID, and then columns for each of the samples:
+counts <- data.frame(gene_id=txdf$GENEID,
+ feature_id=txdf$TXNAME,
+ cts)
+###We can now load the DRIMSeq package and create a dmDSdata object, with our counts and samps data.frames. Typing in the object name and pressing return will give information about the number of genes:
+library(DRIMSeq)
+d <- dmDSdata(counts=counts, samples=samps)
+d
+###The dmDSdata object has a number of specific methods. Note that the rows of the object are gene-oriented, so pulling out the first row corresponds to all of the transcripts of the first gene:
+methods(class=class(d))
+counts(d[1,])[,1:4]
+
+n <- 12
+n.small <- 6
+d <- dmFilter(d,
+ min_samps_feature_expr=n.small, min_feature_expr=10,
+ min_samps_feature_prop=n.small, min_feature_prop=0.1,
+ min_samps_gene_expr=n, min_gene_expr=10)
+d
+
+table(table(counts(d)$gene_id))
+
+design_full <- model.matrix(~condition, data=DRIMSeq::samples(d))
+colnames(design_full)
+
 set.seed(1)
 system.time({
  d <- dmPrecision(d, design=design_full)
  d <- dmFit(d, design=design_full)
- d <- dmTest(d, coef="conditionguard") ###The condition label changes. 
+ d <- dmTest(d, coef="conditionguard")
 })
+
+res <- DRIMSeq::results(d)
+head(res)
+res.txp <- DRIMSeq::results(d, level="feature")
+head(res.txp)
+###write.csv(res, file="Caste_level_DTU.DRIMSeq.withDecoy.csv")
+
+###omit NA Values
+no.na <- function(x) ifelse(is.na(x), 1, x)
+res$pvalue <- no.na(res$pvalue)
+res.txp$pvalue <- no.na(res.txp$pvalue)
+
+###Plot the estimated proportions for the significant genes, where we can see evidence of switching
+idx <- which(res$adj_pvalue < 0.05)[1]
+res[idx,]
+plotProportions(d, res$gene_id[idx], "condition")
+```
+
+### stageR following DRIMSeq Analysis
+
+
+```{r Install and Load Packages}
+pScreen <- res$pvalue
+strp <- function(x) substr(x,1,15)
+names(pScreen) <- strp(res$gene_id)
+### We construct a one column matrix of the confirmation p-values:
+pConfirmation <- matrix(res.txp$pvalue, ncol=1)
+rownames(pConfirmation) <- strp(res.txp$feature_id)
+### We arrange a two column data.frame with the transcript and gene identifiers.
+tx2gene <- res.txp[,c("feature_id", "gene_id")]
+for (i in 1:2) tx2gene[,i] <- strp(tx2gene[,i])
+### The following functions then perform the stageR analysis. We must specify an alpha, which will be the overall false discovery rate target for the analysis, defined below. Unlike typical adjusted p-values or q-values, we cannot choose an arbitrary threshold later: after specifying alpha=0.05, we need to use 5% as the target in downstream steps.
+stageRObj <- stageRTx(pScreen=pScreen, pConfirmation=pConfirmation,
+ pScreenAdjusted=FALSE, tx2gene=tx2gene)
+stageRObj <- stageWiseAdjustment(stageRObj, method="dtu", alpha=0.05)
+suppressWarnings({
+ drim.padj <- getAdjustedPValues(stageRObj, order=FALSE,
+ onlySignificantGenes=TRUE)
+})
+head(drim.padj)
+###write.csv(drim.padj, file="Caste_drim.padj.csv")
+
+###Get Significant genes 
+StageR_Cast_DTUSigGenes <- (getSignificantGenes(stageRObj))
+head(StageR_Cast_DTUSigGenes)
+###write.csv(StageR_Cast_DTUSigGenes, file="StageR_Cast_DTUSigGenes.csv")
 ```
 
 ## __References__

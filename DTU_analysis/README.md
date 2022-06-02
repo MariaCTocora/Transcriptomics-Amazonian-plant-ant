@@ -129,6 +129,8 @@ plotProportions(d, res$gene_id[idx], "condition")
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTU_analysis/README_figures/g7229_DTU.png)
 
 ### stageR following DRIMSeq Analysis
+The stage-wise analysis has been adopted from (Heller et al. 2009) and consists of a screening stage and a confirmation stage. In the screening stage, genes are screened by calculating p-values that aggregate evidence across the different hypotheses of interest for the gene. The screening p-values are then adjusted for FDR control after which significance of the screening hypothesis is assessed. In the confirmation stage, only genes passing the screening stage are considered for analysis. 
+
 ```{r Install and Load Packages}
 ### We show below how stageR is used to detect DTU and how to interpret its output.
 ### We first construct a vector of p-values for the screening stage: 
@@ -186,6 +188,8 @@ passed those filters are included in the table. Please consider that the returne
 | g8428	| 0.025726378 |
 
 ### OPTIONAL: Post-hoc filtering on the standard deviation in proportions
+Love et al (2018) describe the following Post-hoc, non-specific filtering of the DRIMSeq transcript p-values and adjusted p-values, that can improve the FDR and OFDR control considered the standard deviation (SD) of the per-sample proportions as a filtering statistic: 
+
 ```{r Install and Load Packages}
 res.txp.filt <- DRIMSeq::results(d, level="feature")
 smallProportionSD <- function(d, filter=0.1) {
@@ -202,12 +206,22 @@ res.txp.filt$adj_pvalue[filt] <- 1
 ```
 
 ### Caste
+The following are modifications to the code we need to consider in order to perform the analysis between broodcare workers and bodyguards.
+
 ```{r Install and Load Packages}
 samps <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", "samplesCaste.csv"))
 names(samps) <- c("sample_id","plant.id","treatment.code","condition", "attack.avg", "activity.level", "date", "time")
 files <- file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", samps$sample_id, "quant.sf")
 cts <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", "cts_caste.csv"), row.names = 1)
 txdf <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", "txdf.csv"))
+n <- 12 ### The number of samples is different from the Activity analysis
+n.small <- 6 ### The n.small to be the sample size of the smallest group is different from the Activity analysis. 
+set.seed(1)
+system.time({
+ d <- dmPrecision(d, design=design_full)
+ d <- dmFit(d, design=design_full)
+ d <- dmTest(d, coef="conditionguard") ###The condition label changes. 
+})
 ```
 
 ## __References__
@@ -215,3 +229,4 @@ txdf <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcripto
 2. tximport: Charlotte Soneson, Michael I. Love, Mark D. Robinson. Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences, F1000Research, 4:1521, December 2015. doi: 10.12688/f1000research.7563.1
 3. rnaseqDTU:Love MI, Soneson C, Patro R (2018). “Swimming downstream: statistical analysis of differential transcript usage following Salmon quantification.” F1000Research. doi: 10.12688/f1000research.15398.3.
 4. stageR:Van den Berge K, Clement L (2022). stageR: stageR: stage-wise analysis of high throughput gene expression data in R. R package version 1.18.0
+5. stageR: Heller, Ruth, Elisabetta Manduchi, Gregory R Grant, and Warren J Ewens. 2009. “A flexible two-stage procedure for identifying gene sets that are differentially expressed.” Bioinformatics (Oxford, England) 25 (8): 1019–25. https://doi.org/10.1093/bioinformatics/btp076.

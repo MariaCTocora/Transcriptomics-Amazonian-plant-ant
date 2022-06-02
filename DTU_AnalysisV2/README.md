@@ -127,8 +127,6 @@ plotProportions(d, res$gene_id[idx], "condition")
 ### You can change the idx value to check for different genes.
 ```
 
-![plot](C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Activity_level/Rplotg15.png)
-
 ### stageR following DRIMSeq Analysis
 ```{r Install and Load Packages}
 ### We show below how stageR is used to detect DTU and how to interpret its output.

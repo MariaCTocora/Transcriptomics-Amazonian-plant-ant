@@ -166,6 +166,8 @@ StageR_Act_DTUSigGenes <- (getSignificantGenes(stageRObj))
 head(StageR_Act_DTUSigGenes)
 ### Download the final database with write.csv(StageR_Act_DTUSigGenes, file="StageR_Activity_DTUSigGenes.csv")
 ```
+The final database summarizes the list of significant genes from the two-stage stageR analysis (screening and confirmation). Only genes that
+passed those filters are included in the table. Please consider that the returned adjusted p-values are based on a stage-wise testing approach and are only valid for the provided target  overall false discovery rate  (OFDR) level of 5% (alpha = 0.05).
 
 |gen ID|FDR adjusted p-value|
 | --- | --- |
@@ -182,10 +184,6 @@ head(StageR_Act_DTUSigGenes)
 | g7229	| 0.037695361 |
 | g8013	| 0.001589396 |
 | g8428	| 0.025726378 |
-
-
-![image](https://user-images.githubusercontent.com/73489125/171649172-edd7934e-174a-411e-adc9-d60d4a2cab50.png)
-
 
 ### OPTIONAL: Post-hoc filtering on the standard deviation in proportions
 ```{r Install and Load Packages}

@@ -85,7 +85,7 @@ Table 1. Transcripts in the 5% FDR set.
   
  Table 2. Significant genes with the lowest (most negative) and highest (most positive) log2 fold changes
 
-Get significant genes list
+### Get significant genes list
 ```{r Install and Load Packages}
 sig <- mcols(y)$qvalue < .05
 sig2 <- mcols(y)[(sig),c("log2FC","qvalue")] ###to get just the significant genes
@@ -95,15 +95,17 @@ sig3 <- print(as.data.frame(sig2)) ##Print the significant genes as a list in a 
 | gene ID | log2FC | qvalue |
 | --- | --- | --- |
 | NODE_29252_length_1645_cov_6183.978342_g7216_i2 | 3.188244 | 0.0025 |
-| NODE_39386_length_1080_cov_3627.980019_g13731_i1 | 4.734310 0.0025 |
-| NODE_46557_length_810_cov_19810.451985_g6591_i2 | 5.379874 0.0025 |
-| NODE_47477_length_782_cov_2782.565737_g9305_i1 | 3.402328 0.0025 |
+| NODE_39386_length_1080_cov_3627.980019_g13731_i1 | 4.734310 | 0.0025 |
+| NODE_46557_length_810_cov_19810.451985_g6591_i2 | 5.379874 | 0.0025 |
+| NODE_47477_length_782_cov_2782.565737_g9305_i1 | 3.402328 | 0.0025 |
 
 ### Plot of distributtion of p-values
 There is not an enrichment of transcripts with p-values near 0 (Figure 1). 
 ```{r Install and Load Packages}
 hist(mcols(y)$pvalue, col="grey")
 ```
+
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/Activity_Distribution_of_p-values.png)
 
 ### Plots
 Plot the scaled counts for the inferential replicates, and also group the samples by a covariate. The analysis was paired, so the statistic assessed if the change within pairs was consistent (Figure 2). 
@@ -114,14 +116,14 @@ plotInfReps(y, idx=hi[2], x="condition")
 plotInfReps(y, idx=hi[3], x="condition")
 plotInfReps(y, idx=hi[4], x="condition")
 ```
-plot
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/DTE_g6591.png)
 
 We can make an MA plot, where the transcripts in our FDR set are colored (Figure 3.):
 ```{r Install and Load Packages}
 We can make an MA plot, where the transcripts in our FDR set are colored (Figure 3.): 
 ```
 
-plot
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/MAplot_DTE_Activity.png)
 
 ## __References__
 1. Tximeta: Love MI, Soneson C, Hickey PF, Johnson LK, Pierce NT, Shepherd L, Morgan M, Patro R (2020). “Tximeta: Reference sequence checksums for provenance identification in RNA-seq.” PLOS Computational Biology, 16, e1007664. doi: 10.1371/journal.pcbi.1007664.

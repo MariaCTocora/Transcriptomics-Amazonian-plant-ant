@@ -1,17 +1,11 @@
----
-title: "DTU_AnalysisV2"
-author: "M. Tocora"
-date: "6/1/2022"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+Differential Transcript Usage
+================
+Megan Frederickson
+16/09/2021
 
 The following Differential Transcript usage (DTU) analyses follow Love MI, Soneson C and Patro R. Swimming downstream: statistical analysis of differential transcript usage following Salmon quantification [version 3; peer review: 3 approved]. F1000Research 2018, 7:952 (https://doi.org/10.12688/f1000research.15398.3)
 
-# __Installing and loading packages__
+### Installing and loading packages
 ```{r Install and Load Packages}
 ###DRIMSeq (https://bioconductor.org/packages/release/bioc/html/DRIMSeq.html)
 if (!require("BiocManager", quietly = TRUE))
@@ -37,7 +31,7 @@ library(tximport)
 library(stageR)
 ```
 
-# __Importing counts into R/Bioconductor__
+### Importing counts into R/Bioconductor
 This example in going to provide code for the activity (high vs low-activity bodyguards) but files for the Caste analysis are under section the Caste section at the end. 
 ```{r Install and Load Packages}
 samps <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Activity_level", "samplesActivity.csv"))
@@ -51,7 +45,7 @@ head(files)
 ### We used the quant.sf files from Salmon (Samples' names i.e. NODE_1_length_27414_cov_892.910316_g0_i0)
 ```
 
-# __Workflow DRIMSeq__
+### Workflow DRIMSeq
 ```{r Install and Load Packages}
 txi <- tximport(files, type="salmon", txOut=TRUE,
  countsFromAbundance="scaledTPM")
@@ -135,7 +129,7 @@ plotProportions(d, res$gene_id[idx], "condition")
 
 ![plot](C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Activity_level/Rplotg15.png)
 
-# __stageR following DRIMSeq Analysis__
+### stageR following DRIMSeq Analysis
 ```{r Install and Load Packages}
 ### We show below how stageR is used to detect DTU and how to interpret its output.
 ### We first construct a vector of p-values for the screening stage: 
@@ -174,7 +168,7 @@ head(StageR_Act_DTUSigGenes)
 ### Download the final database with write.csv(StageR_Act_DTUSigGenes, file="StageR_Activity_DTUSigGenes.csv")
 ```
 
-## __OPTIONAL: Post-hoc filtering on the standard deviation in proportions__
+### OPTIONAL: Post-hoc filtering on the standard deviation in proportions
 ```{r Install and Load Packages}
 res.txp.filt <- DRIMSeq::results(d, level="feature")
 smallProportionSD <- function(d, filter=0.1) {
@@ -190,7 +184,7 @@ res.txp.filt$pvalue[filt] <- 1
 res.txp.filt$adj_pvalue[filt] <- 1
 ```
 
-## __CASTE__
+### CASTE
 ```{r Install and Load Packages}
 samps <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", "samplesCaste.csv"))
 names(samps) <- c("sample_id","plant.id","treatment.code","condition", "attack.avg", "activity.level", "date", "time")

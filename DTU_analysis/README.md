@@ -31,6 +31,8 @@ library(tximport)
 library(stageR)
 ```
 
+## __Activity Analysis__
+
 ### Importing counts into R/Bioconductor
 This example in going to provide code for the activity (high vs low-activity bodyguards) but files for the Caste analysis are under the Caste section at the end. 
 ```{r Install and Load Packages}
@@ -210,7 +212,7 @@ res.txp.filt$pvalue[filt] <- 1
 res.txp.filt$adj_pvalue[filt] <- 1
 ```
 
-## __Caste__
+## __Caste Analysis__
 The following are modifications to the code we need to consider in order to perform the analysis between broodcare workers and bodyguards.
 
 ### Workflow DRIMSeq

@@ -197,24 +197,3 @@ txdf <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcripto
 2. tximport: Charlotte Soneson, Michael I. Love, Mark D. Robinson. Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences, F1000Research, 4:1521, December 2015. doi: 10.12688/f1000research.7563.1
 3. rnaseqDTU:Love MI, Soneson C, Patro R (2018). “Swimming downstream: statistical analysis of differential transcript usage following Salmon quantification.” F1000Research. doi: 10.12688/f1000research.15398.3.
 4. stageR:Van den Berge K, Clement L (2022). stageR: stageR: stage-wise analysis of high throughput gene expression data in R. R package version 1.18.0
-
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

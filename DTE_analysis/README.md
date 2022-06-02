@@ -28,6 +28,8 @@ library(fishpond)
 library(SummarizedExperiment)
 ```
 
+## __Activity Analysis__
+
 ### Importing data
 
 In this step we are going to create a SummarizedExperiment object that is a matrix-like container where rows represent features of interest (e.g. genes, transcripts, exons, etc...) and columns represent samples (with sample data summarized as a DataFrame). This object contains one or more assays, each represented by a matrix-like object of numeric or other mode. The following code describes a DTE Analysis for the activity comparison (high vs low-activity bodyguards), modifications of the code for the caste analysis is stated at the end. 
@@ -124,6 +126,9 @@ We can make an MA plot, where the transcripts in our FDR set are colored (Figure
 ```
 
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/MAplot_DTE_Activity.png)
+
+## __Caste Analysis__
+
 
 ## __References__
 1. Tximeta: Love MI, Soneson C, Hickey PF, Johnson LK, Pierce NT, Shepherd L, Morgan M, Patro R (2020). “Tximeta: Reference sequence checksums for provenance identification in RNA-seq.” PLOS Computational Biology, 16, e1007664. doi: 10.1371/journal.pcbi.1007664.

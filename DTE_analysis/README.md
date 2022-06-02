@@ -194,15 +194,20 @@ Table 1. Transcripts in the 5% FDR set.
 
 Table 2. Significant genes with the lowest (most negative) and highest (most positive) log2 fold changes
 
+The significant genes list is available in the folder "Data" 
+
 ### Plots: 
 
 Plot of distributtion of p-values
+
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/DTECaste_Distribution_of_p-values.png)
 
 Plot of the scaled counts for the inferential replicates
+
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/DTECaste_g2658.png)
 
 MA Plot
+
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/MAplot_DTE_Caste.png)
 
 ## __References__

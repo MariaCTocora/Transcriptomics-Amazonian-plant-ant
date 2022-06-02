@@ -1,7 +1,7 @@
 Differential Transcript Usage
 ================
-Megan Frederickson
-16/09/2021
+Maria Tocora
+June, 2022
 
 The following Differential Transcript usage (DTU) analyses follow Love MI, Soneson C and Patro R. Swimming downstream: statistical analysis of differential transcript usage following Salmon quantification [version 3; peer review: 3 approved]. F1000Research 2018, 7:952 (https://doi.org/10.12688/f1000research.15398.3)
 

@@ -131,7 +131,7 @@ plotProportions(d, res$gene_id[idx], "condition")
 ```
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTU_analysis/README_figures/g7229_DTU.png)
 
-## Figure 1.  Estimated transcript proportions for one of the significant genes (g7229)
+_Figure 1.  Estimated transcript proportions for one of the significant genes (g7229)
 
 ### stageR following DRIMSeq Analysis
 The stage-wise analysis has been adopted from (Heller et al. 2009) and consists of a screening stage and a confirmation stage. In the screening stage, genes are screened by calculating p-values that aggregate evidence across the different hypotheses of interest for the gene. The screening p-values are then adjusted for FDR control after which significance of the screening hypothesis is assessed. In the confirmation stage, only genes passing the screening stage are considered for analysis. 

@@ -3,7 +3,7 @@ Differential Transcript Usage
 Maria Tocora
 June, 2022
 
-The following analyses follow Love MI, Soneson C and Patro R. Swimming downstream: statistical analysis of differential transcript usage following Salmon quantification [version 3; peer review: 3 approved]. F1000Research 2018, 7:952 (https://doi.org/10.12688/f1000research.15398.3)
+The following analyses are based on Love MI, Soneson C and Patro R. Swimming downstream: statistical analysis of differential transcript usage following Salmon quantification [version 3; peer review: 3 approved]. F1000Research 2018, 7:952 (https://doi.org/10.12688/f1000research.15398.3)
 
 ### Installing and loading packages
 ```{r Install and Load Packages}
@@ -32,7 +32,7 @@ library(stageR)
 ```
 
 ### Importing counts into R/Bioconductor
-This example in going to provide code for the activity (high vs low-activity bodyguards) but files for the Caste analysis are under section the Caste section at the end. 
+This example in going to provide code for the activity (high vs low-activity bodyguards) but files for the Caste analysis are under the Caste section at the end. 
 ```{r Install and Load Packages}
 samps <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Activity_level", "samplesActivity.csv"))
 head(samps)

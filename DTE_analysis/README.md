@@ -128,7 +128,77 @@ We can make an MA plot, where the transcripts in our FDR set are colored (Figure
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/MAplot_DTE_Activity.png)
 
 ## __Caste Analysis__
+In this section I summarize the code to perform DTE Analysis with the Caste database. 
 
+```{r Install and Load Packages}
+coldata <- read.csv(file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", "samplesCaste.csv"))
+head(coldata)
+names(coldata) <- c("names","plant.id","treatment.code","condition", "attack.avg", "activity.level", "date", "time")
+head(coldata)
+coldata$files <- file.path("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/QuantFiles/Caste_level", coldata$names, "quant.sf")
+all(file.exists(coldata$files))
+####Download the entire folder from tximport
+se <- tximeta(coldata)
+y <- se
+y <- y[,y$condition %in% c("guard","brood")]
+y$condition <- factor(y$condition, levels=c("guard","brood"))
+####couldn't find matching transcriptome, returning non-ranged SummarizedExperiment
+y <- scaleInfReps(y)
+y <- labelKeep(y)
+y <- y[mcols(y)$keep,]
+set.seed(1)
+y <- swish(y, x="condition")
+table(mcols(y)$qvalue < .05)
+most.sig <- with(mcols(y),
+                 order(qvalue, -abs(log2FC)))
+mcols(y)[head(most.sig),c("log2FC","qvalue")]
+###Plotting results
+hist(mcols(y)$pvalue, col="grey")
+###With the following code chunk, we construct two vectors that give the significant genes with the lowest (most negative) and highest (most positive) log2 fold changes. 
+with(mcols(y),
+     table(sig=qvalue < .05, sign.lfc=sign(log2FC))
+     )
+sig <- mcols(y)$qvalue < .05
+sig2 <- mcols(y)[(sig),c("log2FC","qvalue")] ###to get just the significant genes (write.csv(sig3, file="Caste_DTESigGenes.csv"))
+sig3 <- print(as.data.frame(sig2))
+lo <- order(mcols(y)$log2FC * sig)
+hi <- order(-mcols(y)$log2FC * sig)
+###Here we print a small table with just the calculated statistics for the large positive log fold change transcripts (up-regulation):
+top_up <- mcols(y)[head(hi),]
+names(top_up)
+cols <- c("log10mean","log2FC","pvalue","qvalue")
+print(as.data.frame(top_up)[,cols], digits=3)
+###Likewise for the largest negative log fold change transcripts (down-regulation):
+top_down <- mcols(y)[head(lo),]
+print(as.data.frame(top_down)[,cols], digits=3)
+###PlotResults
+plotInfReps(y, idx=hi[1], x="condition")
+plotInfReps(y, idx=lo[1], x="condition")
+###We can make an MA plot, where the transcripts in our FDR set are colored:
+plotMASwish(y, alpha=.09)
+```
+
+### Tables:
+
+| FALSE | TRUE |
+| --- | --- |
+| 37451 | 400 |
+
+Table 1. Transcripts in the 5% FDR set.
+
+|  |  | sign.lfc |
+| --- | --- | --- |
+| sig | -1 | 1 |
+| FALSE | 19038 | 18413 |
+| TRUE | 134 | 266 |
+
+### Plots: 
+
+plot
+
+plot
+
+plot
 
 ## __References__
 1. Tximeta: Love MI, Soneson C, Hickey PF, Johnson LK, Pierce NT, Shepherd L, Morgan M, Patro R (2020). “Tximeta: Reference sequence checksums for provenance identification in RNA-seq.” PLOS Computational Biology, 16, e1007664. doi: 10.1371/journal.pcbi.1007664.

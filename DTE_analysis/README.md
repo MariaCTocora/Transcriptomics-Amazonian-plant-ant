@@ -107,7 +107,7 @@ There is not an enrichment of transcripts with p-values near 0 (Figure 1).
 hist(mcols(y)$pvalue, col="grey")
 ```
 
-![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/Activity_Distribution_of_p-values.png)
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/DTEActivity_Distribution_of_p-values.png))
 
 ### Plots
 Plot the scaled counts for the inferential replicates, and also group the samples by a covariate. The analysis was paired, so the statistic assessed if the change within pairs was consistent (Figure 2). 
@@ -118,11 +118,11 @@ plotInfReps(y, idx=hi[2], x="condition")
 plotInfReps(y, idx=hi[3], x="condition")
 plotInfReps(y, idx=hi[4], x="condition")
 ```
-![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/DTE_g6591.png)
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/DTEActivity_g6591.png)
 
 We can make an MA plot, where the transcripts in our FDR set are colored (Figure 3.):
 ```{r Install and Load Packages}
-We can make an MA plot, where the transcripts in our FDR set are colored (Figure 3.): 
+plotMASwish(y, alpha=.09) 
 ```
 
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/MAplot_DTE_Activity.png)
@@ -192,13 +192,18 @@ Table 1. Transcripts in the 5% FDR set.
 | FALSE | 19038 | 18413 |
 | TRUE | 134 | 266 |
 
+Table 2. Significant genes with the lowest (most negative) and highest (most positive) log2 fold changes
+
 ### Plots: 
 
-plot
+Plot of distributtion of p-values
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/DTECaste_Distribution_of_p-values.png)
 
-plot
+Plot of the scaled counts for the inferential replicates
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/DTECaste_g2658.png)
 
-plot
+MA Plot
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTE_analysis/README_Figures/MAplot_DTE_Caste.png)
 
 ## __References__
 1. Tximeta: Love MI, Soneson C, Hickey PF, Johnson LK, Pierce NT, Shepherd L, Morgan M, Patro R (2020). “Tximeta: Reference sequence checksums for provenance identification in RNA-seq.” PLOS Computational Biology, 16, e1007664. doi: 10.1371/journal.pcbi.1007664.

@@ -167,20 +167,23 @@ head(StageR_Act_DTUSigGenes)
 ### Download the final database with write.csv(StageR_Act_DTUSigGenes, file="StageR_Activity_DTUSigGenes.csv")
 ```
 
-	FDR adjusted p-value
-g15	0.004044799
-g3338	1.31E-07
-g4350	0.042032382
-g4830	9.13E-05
-g4886	0.025726378
-g5024	0.042032382
-g5260	0.001595937
-g5456	1.41E-15
-g5511	1.53E-05
-g5823	0.041709246
-g7229	0.037695361
-g8013	0.001589396
-g8428	0.025726378
+|gen ID|FDR adjusted p-value|
+| --- | --- |
+| g15 |0.004044799
+| g3338 | 1.31E-07 |
+| g4350	| 0.042032382 |
+| g4830	| 9.13E-05 |
+| g4886	| 0.025726378 |
+| g5024	| 0.042032382 |
+| g5260	| 0.001595937 |
+| g5456	| 1.41E-15 |
+| g5511	| 1.53E-05 |
+| g5823	| 0.041709246 |
+| g7229	| 0.037695361 |
+| g8013	| 0.001589396 |
+| g8428	| 0.025726378 |
+
+
 ![image](https://user-images.githubusercontent.com/73489125/171649172-edd7934e-174a-411e-adc9-d60d4a2cab50.png)
 
 

@@ -46,6 +46,9 @@ head(files)
 ```
 
 ### Workflow DRIMSeq
+
+The DRIMSeq package implements a Dirichlet-multinomial framework that can be used for modeling various multivariate count data with the interest in finding the instances where the ratios of observed features are different between the experimental conditions (more details available here: https://bioconductor.org/packages/release/bioc/vignettes/DRIMSeq/inst/doc/DRIMSeq.pdf)
+
 ```{r Install and Load Packages}
 txi <- tximport(files, type="salmon", txOut=TRUE,
  countsFromAbundance="scaledTPM")
@@ -127,7 +130,8 @@ plotProportions(d, res$gene_id[idx], "condition")
 ### You can change the idx value to check for different genes.
 ```
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DTU_analysis/README_figures/g7229_DTU.png)
-#_Figure 1.  Estimated transcript proportions for one of the significant genes (g7229).
+
+## Figure 1.  Estimated transcript proportions for one of the significant genes (g7229)
 
 ### stageR following DRIMSeq Analysis
 The stage-wise analysis has been adopted from (Heller et al. 2009) and consists of a screening stage and a confirmation stage. In the screening stage, genes are screened by calculating p-values that aggregate evidence across the different hypotheses of interest for the gene. The screening p-values are then adjusted for FDR control after which significance of the screening hypothesis is assessed. In the confirmation stage, only genes passing the screening stage are considered for analysis. 
@@ -227,7 +231,8 @@ system.time({
 
 ## __References__
 1. DRIMSeq: Nowicka M, Robinson MD (2016). “DRIMSeq: a Dirichlet-multinomial framework for multivariate count outcomes in genomics [version 2; referees: 2 approved].” F1000Research, 5(1356). doi: 10.12688/f1000research.8900.2, https://f1000research.com/articles/5-1356/v2. 
-2. tximport: Charlotte Soneson, Michael I. Love, Mark D. Robinson. Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences, F1000Research, 4:1521, December 2015. doi: 10.12688/f1000research.7563.1
-3. rnaseqDTU:Love MI, Soneson C, Patro R (2018). “Swimming downstream: statistical analysis of differential transcript usage following Salmon quantification.” F1000Research. doi: 10.12688/f1000research.15398.3.
-4. stageR:Van den Berge K, Clement L (2022). stageR: stageR: stage-wise analysis of high throughput gene expression data in R. R package version 1.18.0
-5. stageR: Heller, Ruth, Elisabetta Manduchi, Gregory R Grant, and Warren J Ewens. 2009. “A flexible two-stage procedure for identifying gene sets that are differentially expressed.” Bioinformatics (Oxford, England) 25 (8): 1019–25. https://doi.org/10.1093/bioinformatics/btp076.
+2. DRIMSeq: Nowicka M, Robinson MD: DRIMSeq: a Dirichlet-multinomial framework for multivariate count outcomes in genomics [version 2; referees: 2 approved]. F1000Res. 2016; 5: 1356. 
+3. tximport: Charlotte Soneson, Michael I. Love, Mark D. Robinson. Differential analyses for RNA-seq: transcript-level estimates improve gene-level inferences, F1000Research, 4:1521, December 2015. doi: 10.12688/f1000research.7563.1
+4. rnaseqDTU:Love MI, Soneson C, Patro R (2018). “Swimming downstream: statistical analysis of differential transcript usage following Salmon quantification.” F1000Research. doi: 10.12688/f1000research.15398.3.
+5. stageR:Van den Berge K, Clement L (2022). stageR: stageR: stage-wise analysis of high throughput gene expression data in R. R package version 1.18.0
+6. stageR: Heller, Ruth, Elisabetta Manduchi, Gregory R Grant, and Warren J Ewens. 2009. “A flexible two-stage procedure for identifying gene sets that are differentially expressed.” Bioinformatics (Oxford, England) 25 (8): 1019–25. https://doi.org/10.1093/bioinformatics/btp076.

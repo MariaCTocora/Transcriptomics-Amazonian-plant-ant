@@ -126,7 +126,7 @@ res[idx,]
 plotProportions(d, res$gene_id[idx], "condition") 
 ### You can change the idx value to check for different genes.
 ```
-
+![alt text](http://url/to/img.png)
 
 ### stageR following DRIMSeq Analysis
 ```{r Install and Load Packages}

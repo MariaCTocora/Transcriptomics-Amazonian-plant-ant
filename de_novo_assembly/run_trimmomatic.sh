@@ -1,0 +1,44 @@
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=40
+#SBATCH --time=18:00:00
+
+module load NiaEnv/2019b intelpython3
+source activate myPythonEnv
+
+trimmomatic PE Frederickson_03_reid_103be_S3_R1_001.fastq Frederickson_03_reid_103be_S3_R2_001.fastq 103be_S3_R1_output_forward_paired.fq.gz 103be_S3_R1_output_forward_unpaired.fq.gz 103be_S3_R2_output_reverse_paired.fq.gz 103be_S3_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_04_reid_107be_S4_R1_001.fastq Frederickson_04_reid_107be_S4_R2_001.fastq 107be_S4_R1_output_forward_paired.fq.gz 107be_S4_R1_output_forward_unpaired.fq.gz 107be_S4_R2_output_reverse_paired.fq.gz 107be_S4_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_05_reid_107id_S5_R1_001.fastq Frederickson_05_reid_107id_S5_R2_001.fastq 107id_S5_R1_output_forward_paired.fq.gz 107id_S5_R1_output_forward_unpaired.fq.gz 107id_S5_R2_output_reverse_paired.fq.gz 107id_S5_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_06_reid_109be_S6_R1_001.fastq Frederickson_06_reid_109be_S6_R2_001.fastq 109be_S6_R1_output_forward_paired.fq.gz 109be_S6_R1_output_forward_unpaired.fq.gz 109be_S6_R2_output_reverse_paired.fq.gz 109be_S6_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_07_reid_109id_S7_R1_001.fastq Frederickson_07_reid_109id_S7_R2_001.fastq 109id_S7_R1_output_forward_paired.fq.gz 109id_S7_R1_output_forward_unpaired.fq.gz 109id_S7_R2_output_reverse_paired.fq.gz 109id_S7_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_08_reid_125be_S8_R1_001.fastq Frederickson_08_reid_125be_S8_R2_001.fastq 125be_S8_R1_output_forward_paired.fq.gz 125be_S8_R1_output_forward_unpaired.fq.gz 125be_S8_R2_output_reverse_paired.fq.gz 125be_S8_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_09_reid_127be_S9_R1_001.fastq Frederickson_09_reid_127be_S9_R2_001.fastq 127be_S9_R1_output_forward_paired.fq.gz 127be_S9_R1_output_forward_unpaired.fq.gz 127be_S9_R2_output_reverse_paired.fq.gz 127be_S9_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_10_reid_136be_S10_R1_001.fastq Frederickson_10_reid_136be_S10_R2_001.fastq 136be_S10_R1_output_forward_paired.fq.gz 136be_S10_R1_output_forward_unpaired.fq.gz 136be_S10_R2_output_reverse_paired.fq.gz 136be_S10_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_11_reid_145be_S11_R1_001.fastq Frederickson_11_reid_145be_S11_R2_001.fastq 145be_S11_R1_output_forward_paired.fq.gz 145be_S11_R1_output_forward_unpaired.fq.gz 145be_S11_R2_output_reverse_paired.fq.gz 145be_S11_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_12_reid_187be_S12_R1_001.fastq Frederickson_12_reid_187be_S12_R2_001.fastq 187be_S12_R1_output_forward_paired.fq.gz 187be_S12_R1_output_forward_unpaired.fq.gz 187be_S12_R2_output_reverse_paired.fq.gz 187be_S12_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_13_reid_193be_S13_R1_001.fastq Frederickson_13_reid_193be_S13_R2_001.fastq 193be_S13_R1_output_forward_paired.fq.gz 193be_S13_R1_output_forward_unpaired.fq.gz 193be_S13_R2_output_reverse_paired.fq.gz 193be_S13_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_14_reid_193id_S14_R1_001.fastq Frederickson_14_reid_193id_S14_R2_001.fastq 193id_S14_R1_output_forward_paired.fq.gz 193id_S14_R1_output_forward_unpaired.fq.gz 193id_S14_R2_output_reverse_paired.fq.gz 193id_S14_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_15_reid_199be_S15_R1_001.fastq Frederickson_15_reid_199be_S15_R2_001.fastq 199be_S15_R1_output_forward_paired.fq.gz 199be_S15_R1_output_forward_unpaired.fq.gz 199be_S15_R2_output_reverse_paired.fq.gz 199be_S15_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_16_reid_199id_S16_R1_001.fastq Frederickson_16_reid_199id_S16_R2_001.fastq 199id_S16_R1_output_forward_paired.fq.gz 199id_S16_R1_output_forward_unpaired.fq.gz 199id_S16_R2_output_reverse_paired.fq.gz 199id_S16_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_17_reid_201be_S17_R1_001.fastq Frederickson_17_reid_201be_S17_R2_001.fastq 201be_S17_R1_output_forward_paired.fq.gz 201be_S17_R1_output_forward_unpaired.fq.gz 201be_S17_R2_output_reverse_paired.fq.gz 201be_S17_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_18_reid_201id_S18_R1_001.fastq Frederickson_18_reid_201id_S18_R2_001.fastq 201id_S18_R1_output_forward_paired.fq.gz 201id_S18_R1_output_forward_unpaired.fq.gz 201id_S18_R2_output_reverse_paired.fq.gz 201id_S18_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_19_reid_207be_S19_R1_001.fastq Frederickson_19_reid_207be_S19_R2_001.fastq 207be_S19_R1_output_forward_paired.fq.gz 207be_S19_R1_output_forward_unpaired.fq.gz 207be_S19_R2_output_reverse_paired.fq.gz 207be_S19_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+
+trimmomatic PE Frederickson_20_reid_207id_S20_R1_001.fastq Frederickson_20_reid_207id_S20_R2_001.fastq 207id_S20_R1_output_forward_paired.fq.gz 207id_S20_R1_output_forward_unpaired.fq.gz 207id_S20_R2_output_reverse_paired.fq.gz 207id_S20_R2_output_reverse_unpaired.fq.gz ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 MINLEN:30
+

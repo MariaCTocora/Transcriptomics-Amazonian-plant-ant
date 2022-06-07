@@ -6,5 +6,5 @@
 module load NiaEnv/2019b intelpython3
 source activate myPythonEnv
 
-cd-hit-est -i transcripts.fasta -o transcriptsCollapsed.fasta -c 0.98 -n 8
+cd-hit-est -i transcripts.fasta -o AllSeqtranscriptsCollapsed.fasta -c 0.98 -n 8
 i

@@ -78,7 +78,7 @@ The output obtained "res" containes:
 
 ## Extracting significant differentially expressed genes
 The following pipeline modifies code from https://hbctraining.github.io/Intro-to-R-with-DGE/lessons/B1_DGE_visualizing_results.html
-Please consider that thet The lfc.cutoff is set to 0.58, so since we are working with log2 fold changes so this translates to an actual fold change of 1.5; and the padj.cutoff is set to 0.01. The final database "Activity_sigOE.csv" is available in the folder "Data"  
+Please consider that thet The lfc.cutoff is set to 0.58, so since we are working with log2 fold changes so this translates to an actual fold change of 1.5; and the padj.cutoff is set to 0.01. The final databases "Activity_sigOE.csv" and " are available in the folder "Data"  
 
 ```{r Install and Load Packages}
 res_ordered = res[order(res$pvalue),]
@@ -95,6 +95,7 @@ sigOE <- data.frame(subset(res_ordered, threshold==TRUE)) ## subsetting signific
 write.csv(sigOE, file="Activity_sigOE.csv")
 normalized_counts <- counts(dds, normalized=T) ###normalized counts
 norm_OEsig <- normalized_counts[rownames(sigOE),] ###Extract normalized expression for significant genes
+write.csv(norm_OEsig, file="Activity_norm_OEsig.csv")
 ```
 
 ## Plotting Sig. genes in a heatmap 
@@ -160,7 +161,7 @@ keyvals <- ifelse(
 ActivityVolcanoPlot
 ```
 
-![alt text] (https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DGE_analysis/Figures/Activity_Volcano_plot.png)
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DGE_analysis/Figures/Activity_Volcano_plot.png)
 
 
 ## __References__

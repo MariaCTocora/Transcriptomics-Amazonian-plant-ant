@@ -48,14 +48,14 @@ ddsFullCountTable
 
 The DESeqDataSet got as output is described as follows: 
 
--class: DESeqDataSet 
--dim: 67613 14 
--metadata(1): version
--assays(1): counts
--rownames(67613): g0 g1 ... g9998 g9999
--rowData names(0):
--colnames(14): sample1 sample2 ... sample17 sample19
--colData names(5): plant.id code treatment attack.avg activity.level
+- class: DESeqDataSet 
+- dim: 67613 14 
+- metadata(1): version
+- assays(1): counts
+- rownames(67613): g0 g1 ... g9998 g9999
+- rowData names(0):
+- colnames(14): sample1 sample2 ... sample17 sample19
+- colData names(5): plant.id code treatment attack.avg activity.level
 
 ### Differential expression analysis
 Differential gene expression analysis based on the negative binomial distribution described in Love et al (2014). For mor information check the Methods section of the paper. 
@@ -69,9 +69,9 @@ res <- results(dds)
 res
 ````
 res is a dataframe with:
-log2 fold change (MLE): activity.level high vs low 
-Wald test p-value: activity.level high vs low 
-DataFrame with 67613 rows and 6 columns
+- log2 fold change (MLE): activity.level high vs low 
+- Wald test p-value: activity.level high vs low 
+- DataFrame with 67613 rows and 6 columns
 
 ## Getting significant genes and plotting results in a heatmap
 

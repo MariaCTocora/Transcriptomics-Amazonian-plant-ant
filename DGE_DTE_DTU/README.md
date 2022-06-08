@@ -2,7 +2,7 @@
 Differential Expression Analysis (DGE & DTE & DTU)
 ==================================================
 Maria Tocora 
-Junio, 2022
+June, 2022
 
 The following code is modified from https://jokergoo.github.io/ComplexHeatmap-reference/book/upset-plot.html#upset-plots-as-heatmaps. Tables with the number of genes per every differential expression analysis category are provided below under every comparison. The UpSet plots group co-occurring variables into sets and shows you a bar chart of their frequency (Lex et al., 2014; Conway, et al., 2017). 
 

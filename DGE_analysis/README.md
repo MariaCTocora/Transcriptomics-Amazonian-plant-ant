@@ -25,15 +25,11 @@ install.packages("tidyverse")
 ### RColorBrewer (https://cran.r-project.org/web/packages/RColorBrewer/RColorBrewer.pdf)
 install.packages("RColorBrewer")
 
-
 library("DESeq2")
 library(tidyverse)
 library(RColorBrewer)
-library(ggplot2)
 library(EnhancedVolcano)
-library("pheatmap")
-
-  
+library("pheatmap") 
 ````
 ### Imput data
 We manually obtained a matrix of read counts from the files obtained in Salmon and imported this matrix under "countdata". I also imported the sample information table "coldata". The "countdata" matrix has the samples information in columns organized in the same order as the rows in the "coldata" table.  then, construct a DESeqDataSet with the DESeqDataSetFromMatrix() function.  
@@ -163,6 +159,7 @@ ActivityVolcanoPlot
 
 ![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DGE_analysis/Figures/Activity_Volcano_plot.png)
 
+Figure 2. Volcano plot with significant top genes. Please consider the figure was edited. 
 
 ## __References__
 

@@ -12,15 +12,18 @@ if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("DESeq2")
 
-### EnhacedVolcano (https://bioconductor.org/packages/release/bioc/html/EnhancedVolcano.html)
+### EnhacedVolcano (https://bioconductor.org/packages/release/bioc/html/EnhancedVolcano.html) and (https://bioconductor.org/packages/devel/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html)
 devtools::install_github('kevinblighe/EnhancedVolcano')
 #OR
 if (!requireNamespace('BiocManager', quietly = TRUE))
     install.packages('BiocManager')
   BiocManager::install('EnhancedVolcano')
   
- ### tidyverse (https://www.tidyverse.org/)
+### tidyverse (https://www.tidyverse.org/)
 install.packages("tidyverse")
+
+### RColorBrewer (https://cran.r-project.org/web/packages/RColorBrewer/RColorBrewer.pdf)
+install.packages("RColorBrewer")
 
 
 library("DESeq2")
@@ -68,39 +71,38 @@ dds <- DESeq(dds)
 res <- results(dds)
 res
 ````
-res is a dataframe with:
+The output obtained "res" containes: 
 - log2 fold change (MLE): activity.level high vs low 
 - Wald test p-value: activity.level high vs low 
 - DataFrame with 67613 rows and 6 columns
 
-## Getting significant genes and plotting results in a heatmap
+## Extracting significant differentially expressed genes
+The following pipeline modifies code from https://hbctraining.github.io/Intro-to-R-with-DGE/lessons/B1_DGE_visualizing_results.html
+Please consider that thet The lfc.cutoff is set to 0.58, so since we are working with log2 fold changes so this translates to an actual fold change of 1.5; and the padj.cutoff is set to 0.01.  
 
 ```{r Install and Load Packages}
-library("pheatmap")
 res_ordered = res[order(res$pvalue),]
 head(res_ordered)
 summary(res_ordered)
 sum(res_ordered$padj < 0.01, na.rm=TRUE)
-resSig1 <- res[which(res$padj < 0.01), ]
+### Setting up parameters: 
 padj.cutoff <- 0.01
 lfc.cutoff <- 0.58
-threshold <- res_ordered$padj < padj.cutoff & abs(res_ordered$log2FoldChange) > lfc.cutoff
-length(which(threshold))
-res_ordered$threshold <- threshold   
-sigOE <- data.frame(subset(res_ordered, threshold==TRUE))
-threshold_KD <- res_ordered$padj < padj.cutoff & abs(res_ordered$log2FoldChange) > lfc.cutoff
-res_ordered$threshold <- threshold_KD
-sigKD <- data.frame(subset(res_ordered, threshold==TRUE))
-sigOE_ordered <- sigOE[order(sigOE$padj), ]
-nrow(sigOE_ordered)
-normalized_counts <- counts(dds, normalized=T)
+threshold <- res_ordered$padj < padj.cutoff & abs(res_ordered$log2FoldChange) > lfc.cutoff ### vector containing genes that meet our criteria (parameters stated above). 
+length(which(threshold)) ### the vector has a length equal to the total number of significant genes in the dataset.
+res_ordered$threshold <- threshold 
+sigOE <- data.frame(subset(res_ordered, threshold==TRUE)) ## subsetting significant genes
+write.csv(sigOE, file="Activity_sigOE.csv")
+normalized_counts <- counts(dds, normalized=T) ###normalized counts
+norm_OEsig <- normalized_counts[rownames(sigOE),] ###Extract normalized expression for significant genes
+```
 
-norm_OEsig <- normalized_counts[rownames(sigOE),]
+## Plotting Sig. genes in a heatmap 
+In this section I extract the normalized values of all the significant genes and plot a heatmap of their expression using pheatmap()
 
+```{r Install and Load Packages}
 ### Run pheatmap
-library("pheatmap")
-
-heat.colors <- brewer.pal(6, "Greys")
+heat.colors <- brewer.pal(6, "Greys") ### Set a color palette
 
 annotation <- data.frame(activity.level=coldata[,'activity.level'], 
                      row.names=rownames(coldata))
@@ -112,12 +114,12 @@ annotation= annotation, border_color=NA, fontsize = 10, scale="row",
 
 ```
 
+IMAGE 
 
+Figure 1. Heatmap with significant genes. Please consider the figure was edited. 
 
-## __Activity Volcano Plot__
-```{r Install and Load Packages}
-
-```
+## Visualization of top significant genes
+In this section I plotted the top differentially expressed genes considering a log2FoldChange equal to 2 and padj value of 10e-6 as cutoff parameters. I used the R package "EnhacedVolcano" (Blighe, et al., 2018). Please consider that the log transformed adjusted p-values are plotted on the y-axis and log2 fold change values on the x-axis. 
 
 ```{r Install and Load Packages}
 keyvals <- ifelse(
@@ -158,3 +160,8 @@ keyvals <- ifelse(
 ActivityVolcanoPlot
 ```
 
+
+## __References__
+
+1. DESeq2: Love MI, Huber W, Anders S (2014). “Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2.” Genome Biology, 15, 550. doi: 10.1186/s13059-014-0550-8.
+2. EnhacedVolcano: Blighe, K, S Rana, and M Lewis. 2018. “EnhancedVolcano: Publication-ready volcano plots with enhanced colouring and labeling.” https://github.com/kevinblighe/EnhancedVolcano.

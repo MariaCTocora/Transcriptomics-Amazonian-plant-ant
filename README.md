@@ -13,9 +13,10 @@ Some of the most well-studied mutualisms are ant-plant interactions, where partn
  2.  De novo transcriptome assembly validation (./Assembly_validation): 
  3.  De novo transcriptome annotation (./Transcriptome_annotation):
  4.  Samples alignment to a Decoy-aware transcriptome and counts quantification (./Salmon_pipeline): Based on Patro et al (2017)
- 5.  Differential gene expression analysis (./DGE_analysis):  
+ 5.  Differential gene expression analysis (./DGE_analysis): Based on Love et al (2014) 
  6.  Differential transcript expression (./DTE_analysis): Based on Love et al (2018)  
  7.  Differential transcript usage (./DTU_analysis): Based on Love et al (2018) 
- 8.  Alternative splicing analysis (./DS_analysis): Based on Li et al (2018)
- 9.  Phylogenetic analysis of virus (./Virus_phylo): 
- 10.  References (./references): References for methods used in the analyses. 
+ 8.  Differential experssion analysis (./DGE_DTE_DTU)
+ 9.  Alternative splicing analysis (./DS_analysis): Based on Li et al (2018)
+ 10.  Phylogenetic analysis of virus (./Virus_phylo): 
+ 11.  References (./references): References for methods used in the analyses. 

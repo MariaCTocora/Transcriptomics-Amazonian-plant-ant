@@ -7,11 +7,17 @@ Junio, 2022
 
 run_BUSCO.sh describes code to assess genomic data quality by using BUSCO (Benchmarking Universal Single-Copy Orthologs) scores, which look for the presence or absence of highly conserved genes in an assembly. More information available at https://busco.ezlab.org/
 
-![alt text]
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/Assembly_validation/Figures/BUSCO_results.png)
+
+Figure 1. BUSCO Results
 
 ## __rnaQUAST Validation__
 
 run_rnaQUAST.sh describes code to access quast, a tool for evaluating RNA-Seq assemblies (Bushmanova, et al., 2016). Please considered I self-installed quast in order to run the program. For more information visit:  https://cab.spbu.ru/files/rnaquast/release2.2.1/manual.html
+
+![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/Assembly_validation/Figures/AllseqsTranscript_length.png)
+
+Figure 2. Assembled transcripts length distribution obtained with rnaQUAST
 
 ## __References__
 

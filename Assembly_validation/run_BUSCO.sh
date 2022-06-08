@@ -6,5 +6,6 @@
 module load NiaEnv/2019b intelpython3
 source activate myPythonEnv
 
-busco -m transcriptome -i AllSeqtranscriptsCollapsed.fasta -o busco_Allseqs_insectaV2 -l insecta_odb10
+busco -m transcriptome -i AllSeqtranscriptsCollapsed.fasta -o busco_Allseqs_insecta -l insecta_odb10
+busco -m transcriptome -i AllSeqtranscriptsCollapsed.fasta -o busco_Allseqs_eukaryota -l eukaryota_odb10
 i

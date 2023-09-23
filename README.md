@@ -1,14 +1,12 @@
 Data analyses for Tocora et al (in preparation)
 ================
 Maria Tocora 
-June, 2022
+Sept, 2023
 
 ## Data analyses for Tocora et al (in preparation): Transcriptomic analysis of cooperative behavior in a mutualistic ant-plant interaction
 
 ### Abstract: 
-Some of the most well-studied mutualisms are ant-plant interactions, where partners benefit from each other with nutrition, protection, or dispersal. Even though we have knowledge of the ecology and evolution of these interactions, how mutualistic traits are molecularly regulated remains extensively overlooked.  Here, we focused on investigating the molecular basis of bodyguard behavior in the ant species Allomerus octoarticulatus, which aggressively defends its host myrmecophyte, Cordia nodosa, against herbivores. We performed a de novo transcriptome assembly high-throughput RNA sequences from 14 ant colonies collected from the Peruvian Amazon. A total of 93,122 transcripts and 67,613 unigenes were generated and functionally annotated using BLAST with the UniProtKB dataset as the query. We obtained 136 Gene Ontology (GO) functional sub-groups in the three main GO categories: ‘biological process (86)’, ‘cell component (17)’ and ‘molecular function (31)’. We then analyzed genes that are differentially expressed between high- and low-quality bodyguards and between bodyguards and brood-care workers. We identified 11 differentially expressed genes between the best and worst bodyguards. Most of those genes were upregulated (9/11) in active bodyguards, including a gene with putative functions in cuticle formation, and a protein kinase gene. In the behavioral task comparison, we found 59 differentially expressed genes, most of which were upregulated in brood care workers (58/59), including a putative immunity-related gene and a vitellogenin gene. Our results provide insights into the molecular basis of ant-plant mutualisms and their molecular evolution.
-
-NOTE: Abstract for Evolution (2022) needs to be updated. 
+Ant-plant symbioses are a classic example of mutualism in which ant ‘bodyguards’ defend myrmecophytic plants against enemies in exchange for nest sites and often food. Although the ecology of these interactions has been well studied, how this mutualism is molecularly regulated has been largely overlooked. Here, we investigated the molecular basis of bodyguard behavior in the ant species Allomerus octoarticulatus, which aggressively defends its host myrmecophyte, Cordia nodosa, against herbivores. Field observations in the Peruvian Amazon show variation among colonies in their symbiotic effectiveness. RNA-seq data unravel inter-colony variation in plant protection and mutualist quality is linked to gene and isoform expression. Transcriptomic analysis suggests signatures of task specialization between brood care (nurse) and bodyguard workers providing evidence of labor-dependent molecular expression. As well, our results suggest a condition-specific molecular landscape underlying this interaction as less cooperative partners also differ in immune-related genetic expression from ants actively engaging in cooperation. Finally, we find potential viral infections may explain some of the variations in ants’ willingness to reciprocate the mutualistic interaction. Altogether, our study provides insights into the molecular basis of defense mutualisms, enabling the identification of mechanisms driving cooperative investment. 
 
 ### Description of pipeline, relevant folders in parentheses:
  1.  De novo transcriptome assembly (./De_novo_assembly/): 
@@ -20,5 +18,5 @@ NOTE: Abstract for Evolution (2022) needs to be updated.
  7.  Differential transcript usage (./DTU_analysis): Based on Love et al (2018) 
  8.  Differential experssion analysis (./DGE_DTE_DTU)
  9.  Alternative splicing analysis (./DS_analysis): Based on Li et al (2018)
- 10.  Phylogenetic analysis of virus (./Virus_phylo): 
- 11.  References (./references): References for methods used in the analyses. 
+ 10. Phylogenetic analysis of virus (./Virus_phylo): 
+ 11. References (./references): References for methods used in the analyses. 

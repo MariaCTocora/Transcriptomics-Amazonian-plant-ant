@@ -1,4 +1,4 @@
-Phylogenetic analysis of Dicistrovirus 
+Virus characterization and phylogenetic analysis
 ==============================
 Maria Tocora
 June, 2022

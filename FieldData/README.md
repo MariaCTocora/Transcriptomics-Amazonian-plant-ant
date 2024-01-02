@@ -1,8 +1,7 @@
-## Behaviour Data
+## "Allomerus octoarticulatus field data for transcriptomics project"
 ---
-title: "Allomerus octoarticulatus field data for transcriptomics project"
 author: "Maria C. Tocora, Chris Reid, and Megan Frederickson"
----
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

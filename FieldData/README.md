@@ -2,10 +2,6 @@
 ---
 title: "Allomerus octoarticulatus field data for transcriptomics project"
 author: "Maria C. Tocora, Chris Reid, and Megan Frederickson"
-date: Sys.Date()
-output: github_document
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}

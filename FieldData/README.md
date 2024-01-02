@@ -21,13 +21,14 @@ library(cowplot)
 library(lme4)
 library(png)
 library(car)
+library(magick)
 ```
 
 Next, let's read in the field data.
 
 ```{r load and clean data, warning=FALSE, message=FALSE}
 #Read in data
-df <- read.csv("thesisFieldData.csv")
+df <- read.csv("FieldData.csv")
 
 #Label colonies that were categorized as high-quality or low-quality bodyguards in RNA-Seq project
 df$bodyguard.cat <- ifelse(df$plant %in% c(103, 199, 28, 207, 187, 18, 109), "Low", ifelse(df$plant %in% c(107, 145, 136, 201, 193, 127, 125), "High", NA))
@@ -56,11 +57,15 @@ p1
 #Does bodyguarding activity differ between the two groups? 
 lm1 <- lm(activity.avg~bodyguard.cat, data=subset(df, !is.na(bodyguard.cat)))
 summary(lm1)
-
+Anova(lm1, type=3)
 min.ants.high <- min(subset(df, bodyguard.cat == "High")$activity.avg)
 max.ants.low <- max(subset(df, bodyguard.cat == "Low")$activity.avg)
 
+#Plot(lm1)
+p1 + annotate(geom = "text", x=4.5, y=48, label=paste0("p = ", round(summary(lm1)$coefficients[2,4], 3)))
+
 ```
+
 Analyze herbivory.
 
 ```{r herbivory, warning=FALSE, message=FALSE}

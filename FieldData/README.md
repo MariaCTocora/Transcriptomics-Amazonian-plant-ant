@@ -1,114 +1,147 @@
 ## Behaviour Data
-```{r Load data}
-library(tidyverse)
-####Set working directory 
-setwd("~/Documents/Trancriptomics A. octoarticulatus/FieldData")
-##data <- read_csv("~/Documents/Trancriptomics A. octoarticulatus/FieldData/FieldDataAllomerus.csv")
-View(data)
+---
+title: "Allomerus octoarticulatus field data for transcriptomics project"
+author: "Maria C. Tocora, Chris Reid, and Megan Frederickson"
+date: Sys.Date()
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
 
-#Fix factors, etc.
-data$plant <- as.factor(data$plant)
-data$gh.species <- as.factor(data$gh.species)
-data$gh.age <- as.factor(data$gh.age)
-
-library(hms)
-#Fix time
-data$time <- hms(data$time)
-data$time2 <- as.numeric(data$time)
-
-###Explore data
-hist(sqrt(ao_data$activity.avg))
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r colony consistency}
-install.packages("maditr")
-install.packages("MASS")
-install.packages("pscl")
-library(maditr)
-library(MASS)
-library(pscl)
+This markdown document analyzes the field bioassay and herbivory data from:
 
-#Reorganize to model data at two time points
-data_wide <- dcast(data, plant~trial, value.var="activity.avg", drop=FALSE)
+MC Tocora, C Reid, H Xue, ME Frederickson. Going viral: transcriptomics of an Amazonian ant-plant symbiosis reveals viral infections correlate with ant ‘bodyguard’ behavior. In preparation.
 
-p1 <- ggplot(data=data_wide, aes(x=sqrt(`1`), y=sqrt(`3`)))+
-      geom_point()+
-      geom_smooth(method="lm")
+First, let's load packages. 
+
+```{r load packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(lubridate)
+library(cowplot)
+library(lme4)
+library(png)
+library(car)
+```
+
+Next, let's read in the field data.
+
+```{r load and clean data, warning=FALSE, message=FALSE}
+#Read in data
+df <- read.csv("thesisFieldData.csv")
+
+#Label colonies that were categorized as high-quality or low-quality bodyguards in RNA-Seq project
+df$bodyguard.cat <- ifelse(df$plant %in% c(103, 199, 28, 207, 187, 18, 109), "Low", ifelse(df$plant %in% c(107, 145, 136, 201, 193, 127, 125), "High", NA))
+
+#Make bodyguarding a factor
+df$bodyguard.cat <- as.factor(df$bodyguard.cat)
+```
+
+Choose the colors used in the figures. 
+
+```{r set figure colors, warning=FALSE, message=FALSE}
+fig_colors <- c("blue", "deeppink", "black")
+```
+
+Analyze ant bodyguarding behavior. 
+
+```{r ant bodyguard behavior, warning=FALSE, message=FALSE}
+#Make wide data long
+df_long <- gather(df, bioassay_minute, ants, min1:min5)
+#Make the minutes elapsed in the bioassay numeric
+df_long$bioassay_minute_numeric <- as.numeric(gsub(".*?([0-9]+).*", "\\1", df_long$bioassay_minute))
+
+p1 <- ggplot()+geom_line(data=df_long, aes(x=bioassay_minute_numeric, y=ants, group=plant), alpha=0.5, color="grey")+geom_line(data=subset(df_long, !is.na(bodyguard.cat)), aes(x=bioassay_minute_numeric, y=ants, color=bodyguard.cat, group=plant))+theme_cowplot()+xlab("Time (min.)")+ylab("Ant bodyguards (no.)")+labs(color="Bodyguard activity")+scale_color_manual(values=fig_colors)+theme(legend.position=c(0.1, 0.85))+scale_y_continuous(limits=c(0,50))
 p1
 
-p2 <- ggplot(data=data_wide, aes(x=sqrt(`1`), y=sqrt(`2`)))+
-      geom_point()+
-      geom_smooth(method="lm")
-p2
+#Does bodyguarding activity differ between the two groups? 
+lm1 <- lm(activity.avg~bodyguard.cat, data=subset(df, !is.na(bodyguard.cat)))
+summary(lm1)
 
-lm1 <- lm(sqrt(`1`) ~ sqrt(`3`), data=data_wide)
-summary(lm1) #Same as what Chris gets
-
-nb_model <- glm.nb(round(`1`)~round(`3`), data=data_wide)
-summary(nb_model) #NS
-
-zero_inflated_model_poisson <- zeroinfl(round(`1`) ~ round(`3`)|1, dist="poisson", data=data_wide)
-summary(zero_inflated_model_poisson) #NS
-
-zero_inflated_model_nb <- zeroinfl(round(`1`) ~ round(`3`)|1, dist="negbin", data=data_wide)
-summary(zero_inflated_model_nb) #NS
-
-poisson_model <- glm(round(`1`)~round(`3`), data=data_wide, family="poisson")
-summary(poisson_model)
-plot(poisson_model)
-
-vuong(nb_model, zero_inflated_model_nb) #Zero-inflated model not better
-vuong(poisson_model, zero_inflated_model_poisson) #Zero-inflated Poisson model is better
+min.ants.high <- min(subset(df, bodyguard.cat == "High")$activity.avg)
+max.ants.low <- max(subset(df, bodyguard.cat == "Low")$activity.avg)
 
 ```
+Analyze herbivory.
 
-```{r make data long}
-data_long <- gather(data, minute, ants, min1:min5, factor_key=TRUE)
-data_long$trial_minute <- paste0(data_long$trial, "_", data_long$minute)
-data_long$plant <- as.factor(data_long$plant)
-hist(sqrt(data_long$ants))
-
-#Model trial 1 data with all variables
-install.packages("lme4")
-library(lme4)
-
-#This models the square-root transformed average number of ant bodyguards
-lm1 <- lm(sqrt(activity.avg)~temp.c +time2 + dom.no + gh.length.mm + gh.age + gh.species, data=subset(data, trial == "1"))
-summary(lm1)
-plot(lm1)
-
-lm2 <-  lm(sqrt(activity.avg)~time2 + gh.species, data=subset(data, trial == "1"))
+```{r herbivory, warning=FALSE, message=FALSE}
+#Does ant behavior in the bioassay predict herbivory? 
+lm2 <- lm(herbivory.rank~activity.avg, data=df)
 summary(lm2)
-plot(lm2)
+Anova(lm2, type=3)
+#plot(lm2)
 
-#This models the count at each minute, with plant ID as a random effect (gets the same answers)
-lmm1 <- lmer(sqrt(ants)~trial_minute + temp.c +time2 + dom.no + gh.length.mm + gh.age + gh.species + (1|plant), data=subset(data_long, trial == "1"))
-summary(lmm1)
-plot(lmm1)
+p2 <- ggplot(data=df)+geom_point(aes(x=activity.avg, y=herbivory.rank, color=bodyguard.cat), size=2)+theme_cowplot()+geom_smooth(aes(x=activity.avg, y=herbivory.rank),method="lm", se=FALSE, color="black")+scale_color_manual(values=fig_colors)+xlab("Ant bodyguards (mean no.)")+ylab("Herbivory (rank)")+theme(legend.position="none")+annotate(geom = "text", x=28, y=55, label=paste0("p = ", round(summary(lm2)$coefficients[2,4], 3)))
+p2
 
-#Drop non-significant variables, and re-fit
-lmm2 <- lmer(sqrt(ants)~trial_minute + time2  + gh.species + (1|plant), data=subset(ao_data_long, trial == "1"))
-summary(lmm2)
-plot(lmm2)
-
-#Model trial 3 data with all variables, then drop non-significant variables and re-fit
-lm3 <-  lm(sqrt(activity.avg)~temp.c + dom.no + dom.size.mm+gh.length.mm+time2 + gh.species, data=subset(data, trial == "3"))
+#Does herbivory differ between the two groups? 
+lm3 <- lm(herbivory.rank~bodyguard.cat, data=df)
 summary(lm3)
-plot(lm3)
+Anova(lm3, type=3)
 
-lm4 <-  lm(sqrt(activity.avg)~time2, data=subset(data, trial == "3"))
-summary(lm4)
-plot(lm4)
-
-#Visualize time-of-day effects
-p3 <- ggplot(data=data, aes(x=time, y=sqrt(activity.avg)))+
-      geom_point()+
-      scale_x_time()+
-      facet_wrap(~trial)
+p3 <- ggplot(data=subset(df, !is.na(bodyguard.cat)))+geom_boxplot(aes(x=bodyguard.cat, y=herbivory.rank, fill=bodyguard.cat))+theme_cowplot()+scale_fill_manual(values=fig_colors)+xlab("Bodyguard activity")+ylab("Herbivory (rank)")+theme(legend.position="none")+annotate(geom = "text", x=1.5, y=55, label=paste0("p = ", round(summary(lm3)$coefficients[2,4], 3)))
 p3
+```
 
-#Visualize grasshopper species effect (in trial 1 only)
-p4 <- ggplot(data=subset(data, trial == "1"), aes(x=gh.species, y=sqrt(activity.avg)))+
-      geom_boxplot()
+Make multi-panel plot. 
+
+```{r multipanel plot, warning=FALSE, message=FALSE}
+#Read in png figure
+image <- readPNG("Figure_1.png")
+
+#Set png figure up in ggplot
+system_fig <- ggdraw() +
+  draw_image(
+    image, scale = 0.85, x = 1, y = 0.1,
+    hjust = 1, halign = 1, valign = 0
+  )  
+
+#Assemble multi-panel figure
+p4 <- plot_grid(system_fig, p1, p2, p3, labels="AUTO")
 p4
+
+#Save plot
+save_plot("Figure1.pdf", p4, base_width=8, base_height=6)
+```
+
+Analyze other predictors of ant bodyguarding behavior.
+
+```{r other predictors, warning=FALSE, message=FALSE}
+#Make time a time 
+df$time.fixed <- lubridate::hms(df$time)
+df$time.length.min <- time_length(df$time.fixed - hms("00:00:00"), unit = "minute")
+
+#Model the data
+lm4 <- lm(activity.avg~time.length.min+temp.c+dom.no+gh.mass.g+gh.species+gh.age, data=df)
+summary(lm4)
+Anova(lm4, type=3)
+
+p5 <- ggplot(data=df)+geom_point(aes(x=time.fixed, y=activity.avg, color=bodyguard.cat))+geom_smooth(aes(x=time.fixed, y=activity.avg), method="lm", se=FALSE)+theme_cowplot()+scale_color_manual(values=fig_colors)+xlab("Time of day")+ylab("Ant bodyguards (no.)")+theme(legend.position="none")+scale_x_time(labels=scales::time_format("%H:%M"), limits=c(hms("8:00:00"), hms("18:00:00")))+annotate(geom = "text", x=hms("13:00:00"), y=30, label=paste0("p = ", round(Anova(lm4)[[4]][[1]], 3)))
+p5
+
+p6 <- ggplot(data=df)+geom_point(aes(x=temp.c, y=activity.avg, color=bodyguard.cat))+theme_cowplot()+scale_color_manual(values=fig_colors)+xlab(expression("Temperature " (degree*C)))+ylab("Ant bodyguards (no.)")+theme(legend.position="none")+annotate("text", x=25, y=30, label=paste0("p = ", round(Anova(lm4)[[4]][[2]], 3)))+scale_x_continuous(limits=c(23,27))
+p6
+
+p7 <- ggplot(data=df)+geom_point(aes(x=dom.no, y=activity.avg, color=bodyguard.cat))+theme_cowplot()+scale_color_manual(values=fig_colors)+xlab("Domatia (no.)")+ylab("Ant bodyguards (no.)")+theme(legend.position="none")+annotate(geom = "text", x=62.5, y=30, label=paste0("p = ", round(Anova(lm4)[[4]][[3]], 3)))+scale_x_continuous(limits=c(0,125))
+p7
+
+p8 <- ggplot(data=df)+geom_point(aes(x=gh.mass.g, y=activity.avg, color=bodyguard.cat))+theme_cowplot()+scale_color_manual(values=fig_colors)+xlab("Grasshopper size (g)")+ylab("Ant bodyguards (no.)")+theme(legend.position="none")+annotate(geom = "text", x=0.025, y=30, label=paste0("p = ", round(Anova(lm4)[[4]][[4]], 3)))+scale_x_continuous(limits=c(0,0.05))
+p8
+
+p9 <- ggplot(data=subset(df, gh.age == "adult" | gh.age == "juvenile"))+geom_boxplot(aes(x=gh.age, y=activity.avg))+theme_cowplot()+scale_color_manual(values=fig_colors)+xlab("Grasshopper age")+ylab("Ant bodyguards (no.)")+theme(legend.position="none")+scale_x_discrete(labels=c("Adult", "Juvenile"))+annotate(geom = "text", x=1.5, y=30, label=paste0("p = ", round(Anova(lm4)[[4]][[6]], 3)))
+p9
+
+#Trim white space from grasshopper names
+df$gh.species <- trimws(df$gh.species)
+
+p10 <- ggplot(data=subset(df, gh.species == "Orphulella concinnula" | gh.species == "Orphulella fluvialis" | gh.species == "Orphulella punctata" | gh.species == "Orphulella sp."))+geom_boxplot(aes(x=gh.species, y=activity.avg))+theme_cowplot()+xlab("Grasshopper species")+ylab("Ant bodyguards (no.)")+theme(legend.position="none")+scale_x_discrete(labels=c("*Orphulella<br>concinnula*", "*Orphulella<br> fluvialis*", "*Orphulella<br>punctata*", "*Orphulella*<br>sp."))+theme(axis.text.x = ggtext::element_markdown())+annotate(geom = "text", x=2.5, y=30, label=paste0("p = ", round(Anova(lm4)[[4]][[5]], 3)))
+p10
+
+p11 <- plot_grid(p5, p6, p7, p8, p9, p10, nrow=3, ncol=2, align = "h", labels="AUTO")
+p11
+
+save_plot("FigureS1.pdf", p11, base_width=8, base_height=12)
 ```

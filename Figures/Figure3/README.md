@@ -4,8 +4,7 @@
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-##Installing and loading packages
+Installing and loading packages
 
 ```{r echo=TRUE}
 ### DESeq2 (https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
@@ -168,11 +167,11 @@ system_fig <- ggdraw() +
   )  
 
 ##List of plots
-##ActivityHeatmap
+##system_fig
 ##PlotNes
 #g16223
 #g7229 
-##system_fig 
+##venn
 
 #Assemble multi-panel figure
 up_row <- plot_grid(system_fig, PlotNES, labels = c('A', 'B'), label_size = 12, ncol = 2, rel_widths = c(1, 2))

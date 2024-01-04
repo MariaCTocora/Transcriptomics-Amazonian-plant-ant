@@ -97,7 +97,7 @@ ActivityHeatmap <- pheatmap(norm_OEsig, color = heat.colors, cluster_rows = T, s
 ```
 
 ```{r echo=TRUE}
-NES <- read.csv("~/Documents/METAANALYSIS/Experimental/Meta-analysis Graphs/Funct.Enrich/NES(Act).csv", header = TRUE, row.names = 1) ###First row as columns
+NES <- read.csv("NES(Act).csv", header = TRUE, row.names = 1) ###First row as columns
 NES
 
 ####GO NAME

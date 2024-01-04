@@ -1,5 +1,5 @@
 ---
-"DGE_ActivityResults"
+DGE Activity comparison results
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

@@ -44,9 +44,8 @@ library("pheatmap")
 ##Imput data
 ###ACTIVITY
 ```{r echo=TRUE}
-setwd("~/Documents/Trancriptomics A. octoarticulatus/DEAnalyses/DGE")
-countdata <- read.csv("ACTIVITYgene_count_matrix_collapsedTranscriptomeWithDecoys.csv", header = TRUE, row.names = 1)
-coldata <- read.delim("activitylevel_modified.txt", header = TRUE, row.names = 1)
+countdata <- read.csv("ACTIVITY_gene_count_matrix.csv", header = TRUE, row.names = 1)
+coldata <- read.delim("activity.txt", header = TRUE, row.names = 1)
 all(rownames(coldata) == colnames(countdata))
 ### Need TRUE as output 
 ddsFullCountTable <- DESeqDataSetFromMatrix(countData=round(countdata), 

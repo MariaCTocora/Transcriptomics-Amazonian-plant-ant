@@ -1,5 +1,36 @@
+### Inmune-related gene expression among workers (broodcare and bodyguard ants displaying different levels of aggressiveness)
 
+##Getting significant genes for all three treatments 
 
+```{r echo=TRUE}
+countdata <- read.csv("CASTEgene_count_matrix_collapsedTranscriptomeWithDecoys.csv", header = TRUE, row.names = 1)
+coldata <- read.delim("caste_modified.txt", header = TRUE, row.names = 1)
+ddsFullCountTable <- DESeqDataSetFromMatrix(countData=round(countdata), 
+                                  colData=coldata, 
+                                  design=~treatment)
+ddsFullCountTable
+dds <- ddsFullCountTable
+dds$treatment <- relevel(dds$treatment, "brood")
+as.data.frame(colData(dds))
+dds <- DESeq(dds)
+res <- results(dds)
+res
+### Extracting significant differentially expressed genes
+res_ordered = res[order(res$pvalue),]
+head(res_ordered)
+summary(res_ordered)
+sum(res_ordered$padj < 0.01, na.rm=TRUE)
+### Setting up parameters: 
+padj.cutoff <- 0.01
+lfc.cutoff <- 0.58
+threshold <- res_ordered$padj < padj.cutoff & abs(res_ordered$log2FoldChange) > lfc.cutoff ### vector containing genes that meet our criteria (parameters stated above). 
+length(which(threshold)) ### the vector has a length equal to the total number of significant genes in the dataset.
+res_ordered$threshold <- threshold 
+sigOE <- data.frame(subset(res_ordered, threshold==TRUE)) ## subsetting significant genes
+####write.csv(sigOE, file="Caste_sigOE.csv")
+normalized_counts <- counts(dds, normalized=T) ###normalized counts
+norm_OEsig <- normalized_counts[rownames(sigOE),] ###Extract normalized expression for significant genes
+```
 
 ```{r echo=TRUE}
 ###g68084_hymenoptaecin 

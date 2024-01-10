@@ -1,0 +1,6 @@
+﻿Tags,GO ID,GO.Name,GO.Category,Size,ES,NES,Nominal p-val,FDR,FWER p-val,Rank at Max,Leading Edge,,,,,,,,,,,,,,
+"[BOTTOM, DETAILS]",GO:1901566,organonitrogen compound biosynthetic process,BP,23,-0.4507042,-2.2452724,0,0.00138744,0.001,297,"tags=100%, list=57%, signal=223%",,,,,,,,,,,,,,
+"[BOTTOM, DETAILS]",GO:0019637,organophosphate metabolic process,BP,18,-0.4701195,-2.079667,0,0.01418496,0.007,285,"tags=100%, list=55%, signal=214%",,,,,,,,,,,,,,
+"[BOTTOM, DETAILS]",GO:0031090,organelle membrane,CC,27,-0.3711968,-2.0427098,0,0.01376047,0.008,338,"tags=100%, list=65%, signal=271%",,,,,,,,,,,,,,
+"[TOP, DETAILS]",GO:0008061,chitin binding,MF,18,0.7112262,1.7723761,0,0.016296,0.02,129,"tags=83%, list=25%, signal=107%",,,,,,,,,,,,,,
+"[TOP, DETAILS]",GO:0005198,structural molecule activity,MF,25,0.66504925,1.6884043,0.00103627,0.03551706,0.082,154,"tags=76%, list=30%, signal=103%",,,,,,,,,,,,,,

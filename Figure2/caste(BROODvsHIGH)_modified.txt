@@ -1,7 +1,0 @@
-sample	plant.id	treatment.code	treatment	dom.no	1min	2min	3min	4min	5min	attack.avg	activity.level	date	time
-sample4	107	be	bodyguard(high)	25	8	13	11	14	15	12.2	high	9-Jan	14:40
-sample5	107	id	broodcare	25	8	13	11	14	15	12.2	brood	9-Jan	14:40
-sample13	193	be	bodyguard(high)	57	23	28	32	20	22	25	high	11-Jan	9:40
-sample14	193	id	broodcare	57	23	28	32	20	22	25	brood	11-Jan	9:40
-sample17	201	be	bodyguard(high)	7	15	17	29	27	33	24.2	high	12-Jan	10:40
-sample18	201	id	broodcare	7	15	17	29	27	33	24.2	brood	12-Jan	10:40

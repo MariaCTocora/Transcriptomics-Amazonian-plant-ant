@@ -1,7 +1,25 @@
 
-#Virus 
+## Figure 5 - Compared viral expression between high and low activity bodyguards. 
 
+#Import data
+```{r echo=TRUE}
+countdata <- read.csv("ACTIVITY_gene_count_matrix.csv", header = TRUE, row.names = 1)
+coldata <- read.delim("activity.txt", header = TRUE, row.names = 1)
+all(rownames(coldata) == colnames(countdata))
+### Need TRUE as output 
+ddsFullCountTable <- DESeqDataSetFromMatrix(countData=round(countdata), 
+                                  colData=coldata, 
+                                  design=~activity.level)
+ddsFullCountTable
+dds <- ddsFullCountTable
+dds$activity.level <- relevel(dds$activity.level, "low")
+as.data.frame(colData(dds))
+dds <- DESeq(dds)
+res <- results(dds)
+res
+```
 
+#Find virues
 ```{r echo=TRUE}
 res2 <- results(dds, tidy=TRUE, contrast=c("activity.level", "high", "low")) %>%
   arrange(padj, pvalue) %>%

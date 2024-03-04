@@ -1,4 +1,4 @@
-### Inmune-related gene expression among workers (broodcare and bodyguard ants displaying different levels of aggressiveness)
+### Figure 3 - Inmune-related gene expression among workers (broodcare and bodyguard ants displaying different levels of aggressiveness)
 
 ##Getting significant genes for all three treatments 
 

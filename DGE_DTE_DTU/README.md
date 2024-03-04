@@ -1,5 +1,5 @@
 
-Differential Expression Analysis (DGE & DTE & DTU)
+Differential Expression Analysis (DGE & DTU)
 ==================================================
 Maria Tocora 
 
@@ -19,64 +19,23 @@ library(UpSetR)
 library(ComplexHeatmap)
 ```
 
-## __Activity differential expression analysis__
-
-| Diferential Expression Analysis |	No. Genes |
-| --- | --- | 
-| DGE	| 34 |
-| DTU |	10 |
-| DTE |	0 |
-| DGE & DTE | 4 |
-| DTE & DTU |	0 |
-| DGE & DTU |	2 |
-| DGE & DTE & DTU |	0 |
-| Total No. genes | 51 |
-
 ### UpSet Plot
 ```
-CasteDGE_DTE_DTU <- read_csv("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/Caste_DGE_DTE_DTU_analysis.csv")
-head(CasteDGE_DTE_DTU)
-m = make_comb_mat(CasteDGE_DTE_DTU, top_n_sets = 3)
-UpSet(m)
-comb_elements = lapply(comb_name(m), function(nm) extract_comb(m, nm))
-Interactions = lapply(comb_elements, function(ind) CasteDGE_DTE_DTU$Gene[ind])
-CasteUpSetPlot <- UpSet(t(m)) + rowAnnotation(Interactions = anno_boxplot(Interactions))
-CasteUpSetPlot
+mydata = read.csv("Final_geneSummary.csv")
+Analysis = colnames(mydata)[2:4]
+
+upset(
+    mydata,
+    Analysis,
+    base_annotations=list(
+        'Intersection size'=intersection_size(
+            counts=FALSE,
+            mapping=aes(fill=A)
+        )
+    ),
+    width_ratio=0.1
+)
 ```
-
-![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DGE_DTE_DTU/Figures/Activity_UpSetPlot.png)
-
-Figure 1. Significant genes in the activity comparison per differential expression analysis. 
-
-## __Caste differential expression analysis__
-
-| Diferential Expression Analysis |	No. Genes |
-| --- | --- | 
-| DGE | 358 |
-| DTU |	74 |
-| DTE |	400 |
-| DGE & DTE |	251 |
-| DTE & DTU |	30 |
-| DGE & DTU |	11 |
-| DGE & DTE & DTU |	9 |
-| Total No. genes | 553 |
-
-### UpSet Plot
-
-```
-CasteDGE_DTE_DTU <- read_csv("C:/Users/Paula/Desktop/BODYGUARD PROJECT/Transcriptome analysis/DESeq2_analysis/AllTranscripts/Caste_DGE_DTE_DTU_analysis.csv")
-head(CasteDGE_DTE_DTU)
-m = make_comb_mat(CasteDGE_DTE_DTU, top_n_sets = 3)
-UpSet(m)
-comb_elements = lapply(comb_name(m), function(nm) extract_comb(m, nm))
-Interactions = lapply(comb_elements, function(ind) CasteDGE_DTE_DTU$Gene[ind])
-CasteUpSetPlot <- UpSet(t(m)) + rowAnnotation(Interactions = anno_boxplot(Interactions))
-CasteUpSetPlot
-```
-
-![alt text](https://github.com/mariatocora/Transcriptomic-analysis-ant-plant/blob/main/DGE_DTE_DTU/Figures/Caste_UpSetPlot.png)
-
-Figure 2. Significant genes in the caste comparison per differential expression analysis. 
 
 ## __References__
 

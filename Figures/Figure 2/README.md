@@ -1,5 +1,5 @@
 ---
-DGE Activity comparison results
+Figure 2 - DGE Activity comparison results
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

@@ -1,5 +1,5 @@
 
-## Figure 5 - Compared viral expression between high and low activity bodyguards. 
+## Figure 4 - Compared viral expression between high and low activity bodyguards. 
 
 #Import data
 ```{r echo=TRUE}

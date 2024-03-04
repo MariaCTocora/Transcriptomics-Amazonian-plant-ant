@@ -1,12 +1,13 @@
 Data analyses for Tocora et al (in preparation)
 ================
 Maria Tocora 
-Sept, 2023
 
-## Data analyses for Tocora et al (in preparation): Transcriptomic analysis of cooperative behavior in a mutualistic ant-plant interaction
+## Data analyses for Tocora et al (in preparation):  In sickness and in health: viral infections correlate with mutualist quality in an Amazonian plant-ant Allomerus octoarticulatus
+
 
 ### Abstract: 
-Ant-plant symbioses are a classic example of mutualism in which ant ‘bodyguards’ defend myrmecophytic plants against enemies in exchange for nest sites and often food. Although the ecology of these interactions has been well studied, how this mutualism is molecularly regulated has been largely overlooked. Here, we investigated the molecular basis of bodyguard behavior in the ant species Allomerus octoarticulatus, which aggressively defends its host myrmecophyte, Cordia nodosa, against herbivores. Field observations in the Peruvian Amazon show variation among colonies in their symbiotic effectiveness. RNA-seq data unravel inter-colony variation in plant protection and mutualist quality is linked to gene and isoform expression. Transcriptomic analysis suggests signatures of task specialization between brood care (nurse) and bodyguard workers providing evidence of labor-dependent molecular expression. As well, our results suggest a condition-specific molecular landscape underlying this interaction as less cooperative partners also differ in immune-related genetic expression from ants actively engaging in cooperation. Finally, we find potential viral infections may explain some of the variations in ants’ willingness to reciprocate the mutualistic interaction. Altogether, our study provides insights into the molecular basis of defense mutualisms, enabling the identification of mechanisms driving cooperative investment. 
+Ant-plant symbioses are classic examples of mutualism in which ant ‘bodyguards’ defend myrmecophytic plants against enemies in exchange for nest sites and often food. We used RNA-Seq to profile the transcriptomes of Allomerus octoarticulatus ant workers, which aggressively defend the Amazonian plant Cordia nodosa against herbivores, but to varying degrees. Field behavioral assays with herbivores in the Peruvian Amazon showed striking variation among colonies in the relative zeal with which A. octoarticulatus workers defend their host plant. Highly effective and ineffective bodyguards differed in their gene expression profiles, which revealed viral infections significantly associated with ant bodyguarding behavior. Transcripts from eight new positive-sense single-stranded RNA viruses were differentially expressed between colonies with high- or low-quality bodyguards. Colonies of ‘good’ and ‘bad’ bodyguards were infected by distinct viruses, including viruses clustering phylogenetically with viruses known to cause aggression or reduced locomotion, respectively, in bees. Gene expression, including of immunity-related genes, also differed between broodcare workers and bodyguard ants, suggesting bodyguarding is a distinct worker task. Ant colony health and viral infections may influence ant cooperation with plants in ant-plant mutualisms.
+
 
 ### Description of pipeline, relevant folders in parentheses:
  1.  De novo transcriptome assembly (./De_novo_assembly/): 

@@ -1,4 +1,4 @@
-### Field data analysis
+### Figure 1 - Field data analysis
 
 This markdown document analyzes the field bioassay and herbivory data from:
 

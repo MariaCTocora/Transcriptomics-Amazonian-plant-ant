@@ -1,4 +1,4 @@
-### DGE comparison across broodcare workers and bodyguards 
+### Figure 5 - DGE comparison across broodcare workers and bodyguards 
 
 ###Imput data 
 ###CASTE(Broodcare workers vs high-quality)

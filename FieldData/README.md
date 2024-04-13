@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This markdown document analyzes the field bioassay and herbivory data from:
 
-MC Tocora, C Reid, H Xue, ME Frederickson. Going viral: transcriptomics of an Amazonian ant-plant symbiosis reveals viral infections correlate with ant ‘bodyguard’ behavior. In preparation.
+MC Tocora, C Reid, J. Huisken, H Xue, ME Frederickson. In sickness and in health: viral infections correlate with the quality of ant bodyguarding behavior in an Amazonian ant-plant symbiosis.
 
 First, let's load packages. 
 

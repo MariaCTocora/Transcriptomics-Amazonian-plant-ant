@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This markdown document analyzes the field bioassay and herbivory data from:
 
-MC Tocora, C Reid, J. Huisken, H Xue, ME Frederickson. In sickness and in health: viral infections correlate with the quality of ant bodyguarding behavior in an Amazonian ant-plant symbiosis.
+MC Tocora, C Reid, J. Huisken, H Xue, ME Frederickson. In sickness and in health: RNA-Seq finds viruses associated with mutualist quality in the Amazonian plant-ant Allomerus octoarticulatus.
 
 First, let's load packages. 
 
